@@ -1,16 +1,34 @@
-# summary statistics
+##--- Summary Statistics
+
 summary(data$col)
 range(data$col)
 quantile(data$col)
 
-## aggregation by group-by
+#----
+
+##---- Aggregation
+
 # tapply is good at summarizing vector
-# group by col.id and sum up
 tapply(X=data$col, INDEX=list(data$col.id), FUN=sum)
+
 # by works on dataframe
 by(data[, c("col1", "col2", "col3")], INDICES=list(data$col.id), FUN=mean)
+
 # aggregate
 aggregate(x=data[, c("col1", "col2", "col3")], by=list(data$col.id), FUN=sum)
+
+# summing up for each group and attribute (2x2 statistics)
+rowsum(data[, c("col1", "col2", "col3")], group=data$col.id)
+
+# counts from 1 to max
+data.counts <- tabulate(data$col1)
+# related fn for categorical variable
+table(data$col1)
+table(data$co1, data$col2)
+
+#----
+
+##---- Visualization
 
 # histogram
 data.hist <- ggplot(data, aes(x=DateOccurred)) + geom_histogram()
@@ -37,5 +55,6 @@ ggplot(data, aes(x = colx, y = coly, color = factor2)) + geom_point() +
                 slope = - coef(logit.model)[3] / coef(logit.model)[2], geom = 'abline',
                 color = 'black')
 
+#----
 
 
