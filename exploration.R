@@ -1,13 +1,10 @@
 ##--- Summary Statistics
-
 summary(data$col)
 range(data$col)
 quantile(data$col)
-
 #----
 
 ##---- Aggregation
-
 # tapply is good at summarizing vector
 tapply(X=data$col, INDEX=list(data$col.id), FUN=sum)
 
@@ -25,11 +22,9 @@ data.counts <- tabulate(data$col1)
 # related fn for categorical variable
 table(data$col1)
 table(data$co1, data$col2)
-
 #----
 
 ##---- Visualization
-
 # histogram
 data.hist <- ggplot(data, aes(x=DateOccurred)) + geom_histogram()
 data.hist <- ggplot(data, aes(x=DateOccurred)) + geom_histogram(binwidth = 5)
@@ -54,7 +49,4 @@ ggplot(data, aes(x = colx, y = coly, color = factor2)) + geom_point() +
     stat_abline(intercept = - coef(logit.model)[1] / coef(logit.model)[2],
                 slope = - coef(logit.model)[3] / coef(logit.model)[2], geom = 'abline',
                 color = 'black')
-
 #----
-
-
