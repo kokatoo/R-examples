@@ -1,0 +1,41 @@
+# summary statistics
+summary(data$col)
+range(data$col)
+quantile(data$col)
+
+## aggregation by group-by
+# tapply is good at summarizing vector
+# group by col.id and sum up
+tapply(X=data$col, INDEX=list(data$col.id), FUN=sum)
+# by works on dataframe
+by(data[, c("col1", "col2", "col3")], INDICES=list(data$col.id), FUN=mean)
+# aggregate
+aggregate(x=data[, c("col1", "col2", "col3")], by=list(data$col.id), FUN=sum)
+
+# histogram
+data.hist <- ggplot(data, aes(x=DateOccurred)) + geom_histogram()
+data.hist <- ggplot(data, aes(x=DateOccurred)) + geom_histogram(binwidth = 5)
+
+# kde
+data.kde <- ggplot(heights.weights, aes(x = col1, fill = factor2)) + geom_density()
+# faceted plot
+ggplot(heights.weights, aes(x = col1, fill = factor2)) + geom_density() + facet_grid(factor2 ~ .)
+
+# with scale
+library(scale)
+data.hist <- ggplot(data, aes(x=DateOccurred)) + geom_histogram() + scale_x_date(major="5 years")
+# save plot
+ggsave(plot=data.hist, filename="images/data_hist.png", height=6, width=8)
+
+# scatterplots
+# geom_smooth
+ggplot(heights.weights, aes(x = colx, y = coly)) + geom_point() + geom_smooth()
+# fit a logit model
+logit.model <- glm(y ~ col1 + col2, data = data, family = binomial(link = 'logit'))
+ggplot(data, aes(x = colx, y = coly, color = factor2)) + geom_point() +
+    stat_abline(intercept = - coef(logit.model)[1] / coef(logit.model)[2],
+                slope = - coef(logit.model)[3] / coef(logit.model)[2], geom = 'abline',
+                color = 'black')
+
+
+

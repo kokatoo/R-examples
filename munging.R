@@ -1,7 +1,6 @@
-getwd()
-
 # read in data as dataframe
 data <- read.delim("data.tsv", sep="\t", stringsAsFactors=FALSE, header=FALSE, na.strings="")
+data <- read.csv("data.csv", header=TRUE)
 
 # inspect data
 head(data)
@@ -36,6 +35,9 @@ data$states <- data$states[match(us.states)]
 # same as bracket notation
 data <- subset(data, subset=(!is.na(col)))
 
+# merging data frames
+data.merged <- merge(df1, df2, by.x=c("df.col1, df.col2"), by.y=c("df2.col1, df2.col2", all=TRUE)
+
 # cut data into bins
 data.bins <- cut(data, breaks=10)
 table(data.bins)
@@ -44,8 +46,5 @@ table(data.bins)
 data[sample(1:nrow(data), num.samples),]
 # sampling based on factors
 data[sample(levels(data$col), 3)]
-
-
-
 
 
