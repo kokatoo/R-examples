@@ -18,6 +18,11 @@ good.rows <- ifelse(nchar(data$DateOccurred) != 8, FALSE, TRUE)
 length(which(!good.rows))
 length(which(good.rows))
 
+# transform strings to dates
+data$Date <- as.Date(data$Date, format="%Y%m%d"))
+# or using transform
+data$Date <- transform(data, Date=as.Date(Date, format="%Y%m%d"))
+
 # construct matrix from a list
 matrix <- do.call(rbind, some_list)
 # add matrix to dataframe using transform
@@ -28,7 +33,18 @@ us.states <- c("ak","al","ar","az","ca","co","ct","de","fl","ga","hi","ia","id",
 data$states <- data$states[match(us.states)]
 
 # subset of data (just put in col name)
-data <- subset(data, !is.na(col))
+# same as bracket notation
+data <- subset(data, subset=(!is.na(col)))
+
+# cut data into bins
+data.bins <- cut(data, breaks=10)
+table(data.bins)
+
+# sampling
+data[sample(1:nrow(data), num.samples),]
+# sampling based on factors
+data[sample(levels(data$col), 3)]
+
 
 
 
