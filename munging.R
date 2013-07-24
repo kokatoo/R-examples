@@ -47,4 +47,17 @@ data[sample(1:nrow(data), num.samples),]
 # sampling based on factors
 data[sample(levels(data$col), 3)]
 
+# duplicates
+duplicated(data)
+data.unique <- data.unique[!duplicated(data),]
+# or
+data.unique <- unique(data.unique)
+
+# sorting
+sort(data$col)
+# sorting data frame
+data[order(data$col),]
+data[order(data$col, data$col2),]
+# sorting the whole data frame
+data[do.call(order, data),] # order expects a list of vectors but interprets a dataframe as a vector
 
