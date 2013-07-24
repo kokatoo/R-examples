@@ -1,4 +1,5 @@
 ##---- Fetching CSV files from Yahoo Finance
+
 get.quotes <- function(ticker,
                        from=(Sys.Date()-365),
                        to=(Sys.Date()),
@@ -38,4 +39,5 @@ get.multiple.quotes <- function(tkrs,
 dow.tickers <- c("MMM", "AA", "AXP", "T", "BAC", "BA", "CAT", "CVX", "CSCO", "KO", "DD", "XOM", "GE", "HPQ", "HD", "INTC", "IBM", "JNJ", "JPM", "KFT", "MCD", "MRK", "MSFT", "PFE", "PG", "TRV", "UTX", "VZ", "WMT", "DIS")
 dow30 <- get.multiple.quotes(dow.tickers)
 head(dow30)
-#----
+
+#---- Fetching CSV files from Yahoo Finance
