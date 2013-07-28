@@ -8,12 +8,9 @@ names(data)
 # rename columns
 names(data)<-c("col1", "col2", "col3")
 
-# convert to date
-data$DateOccurred <- as.Date(data$DateOccurred, format="%Y%m%d")
-
 # remove invalid dates
-head(data[which(nchar(data$DateOccurred) != 8)])
-good.rows <- ifelse(nchar(data$DateOccurred) != 8, FALSE, TRUE)
+head(data[which(nchar(data$Date) != 8)])
+good.rows <- ifelse(nchar(data$Date) != 8, FALSE, TRUE)
 length(which(!good.rows))
 length(which(good.rows))
 
@@ -25,7 +22,7 @@ data$Date <- transform(data, Date=as.Date(Date, format="%Y%m%d"))
 # construct matrix from a list
 matrix <- do.call(rbind, some_list)
 # add matrix to dataframe using transform
-data <- transform(data, colnew1=matrix[,1], colnew2=matrix[,2])
+data <- transform(data, colnew1=col1, colnew2=col2)
 
 # lookup and match
 us.states <- c("ak","al","ar","az","ca","co","ct","de","fl","ga","hi","ia","id","il", "in","ks","ky","la","ma","md","me","mi","mn","mo","ms","mt","nc","nd","ne","nh", "nj","nm","nv","ny","oh","ok","or","pa","ri","sc","sd","tn","tx","ut","va","vt", "wa","wi","wv","wy")
@@ -36,7 +33,7 @@ data$states <- data$states[match(us.states)]
 data <- subset(data, subset=(!is.na(col)))
 
 # merging data frames
-data.merged <- merge(df1, df2, by.x=c("df.col1, df.col2"), by.y=c("df2.col1, df2.col2", all=TRUE)
+data.merged <- merge(df1, df2, by.x=c("df1.col1, df1.col2"), by.y=c("df2.col1, df2.col2", all=TRUE))
 
 # cut data into bins
 data.bins <- cut(data, breaks=10)
