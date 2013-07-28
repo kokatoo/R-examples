@@ -9,6 +9,7 @@ quantile(data$col)
 ##---- Aggregation
 
 # tapply is good at summarizing vector
+# group by INDEX
 tapply(X=data$col, INDEX=list(data$col.id), FUN=sum)
 
 # by works on dataframe
