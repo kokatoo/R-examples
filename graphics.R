@@ -49,4 +49,44 @@ spineplot(formula=cat1~cat2, data=data)
 
 #----
 
+##---- 3D Plots
 
+# persp
+x <- seq(-10, 10, length=30)
+y <- x
+f <- function(x, y) {
+    r <- sqrt(x^2+y^2);
+    10*sin(r)/r;
+}
+z <- outer(x, y, f)
+persp(x, y, z, theta = 30, phi = 30, expand = 0.5, col = "lightblue")
+
+# image and contour plots
+x <- 10*(1:nrow(volcano))
+y <- 10*(1:ncol(volcano))
+image(x, y, volcano, col=terrain.colors(100), axes=F)
+contour(x, y, volcano, levels=seq(90,200,by=5), add=T, col="peru")
+
+#----
+
+##---- Plotting Distributions
+
+# histogram
+hist(data$col, breaks=50)
+
+# density
+plot(density(data$col))
+# plot strip plot along the axis of density
+# each point is represented by a line
+rug(data$col)
+
+# Q-Q plot
+# plot quantiles from data to quantiles from a theoretical distribution
+qqnorm(data$col)
+
+# Box plot
+# the adjacent values = largest value less than 1.5 * IQR
+boxplot(col1~categorical1, data=data)
+
+
+#----

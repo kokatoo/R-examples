@@ -16,6 +16,7 @@ length(which(good.rows))
 
 # transform strings to dates
 data$Date <- as.Date(data$Date, format="%Y%m%d"))
+data$Date <- strptime(data$Date, format="%Y%m%d")=
 # or using transform
 data$Date <- transform(data, Date=as.Date(Date, format="%Y%m%d"))
 
