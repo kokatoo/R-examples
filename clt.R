@@ -1,4 +1,4 @@
-CLT <- function(sampleSize=500, numRep=5000, dist="Uniform") {
+clt <- function(sampleSize=500, numRep=5000, dist="Uniform") {
     results = NULL
     for (i in 1:numRep) {
         if (dist == "Uniform") {
@@ -34,16 +34,16 @@ sizes <- function () {
     sampleSize <- 5
     numReps <- 5000
     dist <- "Uniform"
-    CLT(sampleSize, numReps, dist)
+    clt(sampleSize, numReps, dist)
 
     sampleSize <- 50
-    CLT(sampleSize, numReps, dist)
+    clt(sampleSize, numReps, dist)
 
     sampleSize <- 500
-    CLT(sampleSize, numReps, dist)
+    clt(sampleSize, numReps, dist)
 
     sampleSize <- 5000
-    CLT(sampleSize, numReps, dist)
+    clt(sampleSize, numReps, dist)
     par(mfrow=c(1,1))
 }
 
@@ -53,16 +53,16 @@ distributions <- function () {
     sampleSize <- 500
     numReps <- 5000
     dist <- "Uniform"
-    CLT(sampleSize, numReps, dist)
+    clt(sampleSize, numReps, dist)
 
     dist <- "Exponential"
-    CLT(sampleSize, numReps, dist)
+    clt(sampleSize, numReps, dist)
 
     dist <- "Normal"
-    CLT(sampleSize, numReps, dist)
+    clt(sampleSize, numReps, dist)
 
     dist <- "Bimodal"
-    CLT(sampleSize, numReps, dist)
+    clt(sampleSize, numReps, dist)
 
     par(mfrow=c(1,1))
 }
