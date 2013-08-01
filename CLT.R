@@ -29,7 +29,6 @@ CLT <- function(sampleSize=500, numRep=5000, dist="Uniform") {
 }
 
 sizes <- function () {
-    par(mfrow=c(1,1))
     par(mfrow=c(2,2))
 
     sampleSize <- 5
@@ -45,10 +44,10 @@ sizes <- function () {
 
     sampleSize <- 5000
     CLT(sampleSize, numReps, dist)
+    par(mfrow=c(1,1))
 }
 
 distributions <- function () {
-    par(mfrow=c(1,1))
     par(mfrow=c(2,2))
 
     sampleSize <- 500
@@ -64,6 +63,8 @@ distributions <- function () {
 
     dist <- "Bimodal"
     CLT(sampleSize, numReps, dist)
+
+    par(mfrow=c(1,1))
 }
     
 
