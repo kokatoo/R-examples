@@ -1,3 +1,15 @@
+# help
+?t.test
+help.search("acf")
+??acf
+args(t.test)
+example(t.test)
+# learn more about package
+help(package="stats")
+vignette(package="stats")
+# restricted to R documentation
+RSiteSearch("stats package")
+
 # read in data as dataframe
 data <- read.delim("data.tsv", sep="\t", stringsAsFactors=FALSE, header=FALSE, na.strings="")
 data <- read.csv("data.csv", header=TRUE)
