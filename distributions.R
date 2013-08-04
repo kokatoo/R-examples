@@ -21,15 +21,38 @@ for (i in 0:numTrials) {
     variance <- variance + probs[i+1]*i^2
 }
 
-##---- Monte Carlo Integration for Standard Normal Distribution
-numPoints <- 10000
-min <- -1
-max <- 1
-height <- 1/sqrt(2*pi)
-xPts <- runif(numPoints, min, max)
-yPts <- runif(numPoints, 0, height)
+# Monte Carlo Integration for Standard Normal Distribution
+monteCarloInt <- function () {
+    numPoints <- 10000
+    min <- -1
+    max <- 1
+    height <- 1/sqrt(2*pi)
+    xPts <- runif(numPoints, min, max)
+    yPts <- runif(numPoints, 0, height)
 
-# P(-1 < x < 1)
-prob <- sum(yPts <= (1/sqrt(2*pi)) * exp(-.5*xPts^2))/numPoints * height * (max - min)
+    # P(-1 < x < 1)
+    prob <- sum(yPts <= (1/sqrt(2*pi)) * exp(-.5*xPts^2))/numPoints * height * (max - min)
 
-#----
+    prob
+}
+monteCarloInt()
+
+# chisquare simulation
+chiSqSimu <- function () {
+    popMean <- 0
+    popStdDev <- 1
+    sampleSize <- 6
+    reps <- 250
+
+    data <- NULL
+    for(i in 1:reps) {
+        sampleData <- rnorm(sampleSize, popMean, popStdDev)
+        data <- cbind(data, sum((sampleData - mean(sampleData))^2) / popStdDev^2)
+    }
+
+    range <- seq(0,20,1)
+    freqTable <- table(cut(data, range), exclude=NA)/reps
+    freqTable
+    barplot(freqTable, xlab="Group", ylab="Freq", col="skyblue", main="Hist of Chi-square Values",names=as.character(1:length(freqTable)))
+}
+chiSqSimu()
