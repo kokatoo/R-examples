@@ -52,7 +52,34 @@ chiSqSimu <- function () {
 
     range <- seq(0,20,1)
     freqTable <- table(cut(data, range), exclude=NA)/reps
-    freqTable
-    barplot(freqTable, xlab="Group", ylab="Freq", col="skyblue", main="Hist of Chi-square Values",names=as.character(1:length(freqTable)))
+
+    barplot(freqTable, xlab="Group", ylab="Freq", col="skyblue", main="Hist of Chi-square Values", names=as.character(1:length(freqTable)))
 }
 chiSqSimu()
+
+# t simulation
+tTestSimu <- function () {
+    popMean <- 50
+    popStdDev <- 15
+    sampleSize <- 5
+    reps <- 250
+    par(mfrow=c(2,1))
+
+    zData <- NULL
+    tData <- NULL
+    for(i in 1:reps) {
+        sampleData <- rnorm(sampleSize, popMean, popStdDev)
+        zData <- cbind(zData, (mean(sampleData) - popMean) / (popStdDev/sqrt(sampleSize)))
+        tData <- cbind(tData, t.test(sampleData, mu=popMean)$statistic)
+    }
+
+    range <- seq(-4, 4, .5)
+    zFreqTable <- table(cut(zData, range), exclude=NA)/reps
+    tFreqTable <- table(cut(tData, range), exclude=NA)/reps
+
+    barplot(zFreqTable, xlab="Group", ylab="Freq", col="skyblue", main="Hist of Z Values", names=as.character(1:length(zFreqTable)))
+    barplot(tFreqTable, xlab="Group", ylab="Freq", col="skyblue", main="Hist of t Values", names=as.character(1:length(tFreqTable)))
+
+    par(mfrow=c(1,1))
+}
+tTestSimu()
