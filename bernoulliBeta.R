@@ -66,7 +66,11 @@ bernoulliBeta <- function (a=1, b=1) {
     # P(D)
     text(textX, .75*max(pThetaGivenData), cex=1.0,
          bquote("p(D)=" * .(signif(pData, 3))), adj=c(0,2))
+
     par(mfrow=c(1,1))
+
+    # mean of the posterior
+    (z+a) / (N + a + b)
 }
 
 bernoulliBeta(.5, .5)
