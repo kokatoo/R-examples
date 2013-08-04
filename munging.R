@@ -74,6 +74,8 @@ data[!is.na(col)]
 data <- subset(data, subset=(!is.na(col)))
 # exclude first three element
 data[-(1:3)]
+training.x <- x[indices]
+test.x <- x[-indices]
 
 # merging data frames
 data.merged <- merge(df1, df2, by.x=c("df1.col1, df1.col2"), by.y=c("df2.col1, df2.col2", all=TRUE))

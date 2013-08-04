@@ -5,6 +5,8 @@ intercept <- coef(fitted)[1]
 slope <- coef(fitted)[2]
 
 ggplot(data, aes(x=col1, y=col2)) + geom_point() + geom_smooth(method="lm")
+# plot a smooth, nonlinear representation
+ggplot(data, aes(x=col1, y=col2)) + geom_point() + geom_smooth()
 
 predict(fitted)
 residuals(fitted)
@@ -22,3 +24,52 @@ coef(lm(scale(data$col1) ~ scale(data$col2)))[2]
 
 # covariance
 cov(data$col1, data$col2)
+
+# polynomial regression
+poly.fit <- lm(coly ~ poly(colx, degree=3), data=data)
+
+# one way to measure model complexity
+model.complexity <- sum(coef(lm.fit)^2)
+
+##---- Cross validation using regularization
+library(glmnet)
+rmse <- function(y, pred) {
+    return(sqrt(mean((y-pred)^2)))
+}
+cv.regularization <- function(x, y) {
+    n <- length(x)
+    indices <- sort(sample(1:n, round(n/2)))
+
+    training.x <- x[indices]
+    training.y <- y[indices]
+
+    test.x <- x[-indices]
+    test.y <- y[-indices]
+
+    data <- data.frame(x, y)
+    training.df <- data.frame(x=training.x, y=training.y)
+    test.df <- data.frame(x=test.x, y=test.y)
+
+    glmnet.fit <- with(training.df, glmnet(poly(x, degree=10), y))
+    lambdas <- glmnet.fit$lambda
+
+    result <- data.frame()
+    for (lambda in lambdas) {
+        result <- rbind(result, data.frame(Lambda=lambda,
+                                       RMSE=rmse(test.y,
+                                       with(test.df, predict(glmnet.fit, poly(x, degree=10), s=lambda)))))
+    }
+
+    print(ggplot(result, aes(x=Lambda, y=RMSE)) + geom_point() + geom_line() + scale_x_log10())
+
+    best.lambda <- with(result, Lambda[which(RMSE==min(RMSE))])
+
+    glmnet.fit <- with(data, glmnet(poly(x, degree=10), y))
+}
+set.seed(1)
+x <- seq(0, 1, by = 0.01)
+y <- sin(2*pi*x) + rnorm(length(x), 0, 0.1)
+cv.regularization(x, y)
+
+#----
+
