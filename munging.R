@@ -10,6 +10,33 @@ vignette(package="stats")
 # restricted to R documentation
 RSiteSearch("stats package")
 
+# details about variables
+ls()
+ls.str()
+
+# current loaded packages
+search()
+# show all packages installed
+library()
+install.packages()
+
+# remove variables
+rm(var.name)
+rm(list=ls())
+
+# saving workspace
+save.image()
+
+# accessing last value
+x <- .Last.value
+
+# accessing datasets in packages
+data(datasetName, package="packageName")
+# show datasets
+data()
+# show dataset in a particular package
+data(package="name")
+
 # read in data as dataframe
 data <- read.delim("data.tsv", sep="\t", stringsAsFactors=FALSE, header=FALSE, na.strings="")
 data <- read.csv("data.csv", header=TRUE)
@@ -43,7 +70,10 @@ data$states <- data$states[match(us.states)]
 
 # subset of data (just put in col name)
 # same as bracket notation
+data[!is.na(col)]
 data <- subset(data, subset=(!is.na(col)))
+# exclude first three element
+data[-(1:3)]
 
 # merging data frames
 data.merged <- merge(df1, df2, by.x=c("df1.col1, df1.col2"), by.y=c("df2.col1, df2.col2", all=TRUE))
