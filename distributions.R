@@ -44,6 +44,7 @@ chiSqSimu <- function () {
     sampleSize <- 6
     reps <- 250
 
+    par(mfrow=c(2,1))
     data <- NULL
     for(i in 1:reps) {
         sampleData <- rnorm(sampleSize, popMean, popStdDev)
@@ -53,7 +54,11 @@ chiSqSimu <- function () {
     range <- seq(0,20,1)
     freqTable <- table(cut(data, range), exclude=NA)/reps
 
-    barplot(freqTable, xlab="Group", ylab="Freq", col="skyblue", main="Hist of Chi-square Values", names=as.character(1:length(freqTable)))
+    barplot(freqTable, xlab="Group", ylab="Freq", col="skyblue", main="Hist of Chi-square Values 1", names=as.character(1:length(freqTable)))
+
+    chisqVals <- rchisq(reps, sampleSize-1)
+    hist(chisqVals, breaks=20, xlab="Group", ylab="Freq", col="skyblue", main="Hist of Chi-square Values 2")
+    par(mfrow=c(1,1))
 }
 chiSqSimu()
 
