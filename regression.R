@@ -61,10 +61,8 @@ cv.regularization <- function(x, y) {
     }
 
     print(ggplot(result, aes(x=Lambda, y=RMSE)) + geom_point() + geom_line() + scale_x_log10())
-
     best.lambda <- with(result, Lambda[which(RMSE==min(RMSE))])
 
-    print(coef(glmnet.fit, s = best.lambda))
     glmnet.fit <- with(data, glmnet(poly(x, degree=10), y))
 }
 set.seed(1)

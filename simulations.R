@@ -9,6 +9,8 @@ plot(n, probs, type="o", log="x")
 
 #----
 
+##---- Sampling Distribution Simulation
+
 samplingDist <- function(sampleSize, N) {
     flips <- NULL
     for (i in 1:N) {
@@ -39,3 +41,43 @@ samplingDistributionSimu <- function () {
     par(mfrow=c(1,1))
 }
 samplingDistributionSimu()
+
+#----
+
+#---- Confidence Interval Simulation
+
+confidenceIntervalSimu <- function() {
+    sampleSize <- 500
+    popMean <- 100
+    popStdDev <- 50
+    reps <- 30
+    zValue <- 1.96
+
+    results <- c()
+    for (i in 1:reps) {
+        data <- rnorm(sampleSize, popMean, popStdDev)
+        sampleMean <- mean(data)
+
+        lower <- sampleMean - zValue*popStdDev/sqrt(sampleSize)
+        higher <- sampleMean + zValue*popStdDev/sqrt(sampleSize)
+        results <- rbind(results, c(round(sampleMean, digits=2),
+                                paste(round(lower, digits=2), round(higher, digits=2), sep=", "),
+                                popMean,
+                                popMean <= higher && popMean >= lower))
+    }
+
+    cat("\nPopulation Mean: ", popMean, "\nPopulation Std Dev: ", popStdDev,
+        "\nSample Size: ", sampleSize, "\nReps: ", reps)
+
+    cat("\nWithin CI: ", length(which(output[,4]==T))/reps * 100, "%")
+    cat("\n")
+
+    output <- matrix(results, reps, 4)
+    colnames(output) <- c("Sample Mean", "Confidence Interval", "Pop Mean", "Within CI")
+    rownames(output) <- rep("", reps)
+    print(output, min.colwidth=20, page.width=100, prefix.width=0, quote=F)
+}
+
+confidenceIntervalSimu()
+#----
+
