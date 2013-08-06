@@ -14,6 +14,10 @@ RSiteSearch("stats package")
 ls()
 ls.str()
 
+# list files
+list.files()
+list.files(all.files=T)
+
 # current loaded packages
 search()
 # show all packages installed
@@ -36,6 +40,11 @@ data(datasetName, package="packageName")
 data()
 # show dataset in a particular package
 data(package="name")
+
+# read html table from web
+library(XML)
+# 3rd table
+data <- readHTMLTable('http://en.wikipedia.org/wiki/World_population', which=3)
 
 # read in data as dataframe
 data <- read.delim("data.tsv", sep="\t", stringsAsFactors=FALSE, header=FALSE, na.strings="")
