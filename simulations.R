@@ -61,9 +61,9 @@ confidenceIntervalSimu <- function() {
         lower <- sampleMean - zValue*popStdDev/sqrt(sampleSize)
         higher <- sampleMean + zValue*popStdDev/sqrt(sampleSize)
         results <- rbind(results, c(round(sampleMean, digits=2),
-                                paste(round(lower, digits=2), round(higher, digits=2), sep=", "),
-                                popMean,
-                                popMean <= higher && popMean >= lower))
+                                    paste(round(lower, digits=2), round(higher, digits=2), sep=", "),
+                                    popMean,
+                                    popMean <= higher && popMean >= lower))
     }
 
     cat("\nPopulation Mean: ", popMean, "\nPopulation Std Dev: ", popStdDev,
