@@ -72,7 +72,10 @@ confidenceIntervalSimu <- function() {
     cat("\nWithin CI: ", length(which(output[,4]==T))/reps * 100, "%")
     cat("\n")
 
-    output <- matrix(results, reps, 4)
+    output <- matrix(results, reps, 4,
+                     dimnames=list(rep("", reps),
+                     c("Sample Mean", "Confidence Interval", "Pop Mean", "Within CI")))
+
     colnames(output) <- c("Sample Mean", "Confidence Interval", "Pop Mean", "Within CI")
     rownames(output) <- rep("", reps)
     print(output, min.colwidth=20, page.width=100, prefix.width=0, quote=F)
@@ -80,4 +83,3 @@ confidenceIntervalSimu <- function() {
 
 confidenceIntervalSimu()
 #----
-
