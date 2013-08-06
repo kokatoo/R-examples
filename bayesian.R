@@ -1,3 +1,4 @@
+##---- Bayes Update
 bayesUpdate <- function () {
     numThetas <- 50
     thetas <- seq(0.01, 0.99, len=numThetas)
@@ -10,7 +11,7 @@ bayesUpdate <- function () {
     data <- c(rep(1,3), rep(0,9))
     numHeads <- sum(data)
     numTails <- length(data) - numHeads
-    
+
     # likelihood
     pDataGivenTheta = thetas^numHeads * (1-thetas)^numTails
     
@@ -40,7 +41,10 @@ bayesUpdate <- function () {
     
     par(mfrow=c(1,1))
 }
+
 bayesUpdate()
+
+#----
 
 ##---- Bernoulli Beta
 bernoulliBeta <- function (a=1, b=1) {
