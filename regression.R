@@ -25,6 +25,12 @@ coef(lm(scale(data$col1) ~ scale(data$col2)))[2]
 # covariance
 cov(data$col1, data$col2)
 
+# logistic regression
+log.fit <- glmnet(x, y, family="binomial")
+# turning logistic regression output into probs
+library(boot)
+inv.logit(predict(log.fit, newx=x, s=.001))
+
 # polynomial regression
 poly.fit <- lm(coly ~ poly(colx, degree=3), data=data)
 
