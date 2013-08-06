@@ -8,9 +8,10 @@ probs <- cum / n
 plot(n, probs, type="o", log="x")
 
 #----
+
 samplingDist <- function(sampleSize, N) {
     flips <- NULL
-    for (i in 1:N/sampleSize) {
+    for (i in 1:N) {
         flips <- rbind(flips,mean(sample(x=seq(1, 6), prob=rep(1/6, 6), size=sampleSize, replace=T)))
     }
     hist(flips, breaks=6, col="skyblue", main=paste("Sample Size = ", sampleSize))

@@ -1,3 +1,4 @@
+# sums of independent random variables have approx Gaussian distribution
 clt <- function(sampleSize=500, numRep=5000, dist="Uniform") {
     results = NULL
     for (i in 1:numRep) {

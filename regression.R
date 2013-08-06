@@ -64,6 +64,7 @@ cv.regularization <- function(x, y) {
 
     best.lambda <- with(result, Lambda[which(RMSE==min(RMSE))])
 
+    print(coef(glmnet.fit, s = best.lambda))
     glmnet.fit <- with(data, glmnet(poly(x, degree=10), y))
 }
 set.seed(1)
@@ -72,4 +73,3 @@ y <- sin(2*pi*x) + rnorm(length(x), 0, 0.1)
 cv.regularization(x, y)
 
 #----
-

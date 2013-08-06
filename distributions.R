@@ -1,3 +1,13 @@
+##---- Quantile (Inverse CDF)
+
+# Gaussian distribution
+qnorm(.95)
+qnorm(.975)
+qnorm(.05)
+qnorm(.025)
+
+#----
+
 set.seed(1)
 
 # Cauchy distribution
