@@ -66,3 +66,11 @@ ggplot(data, aes(x = colx, y = coly, color = factor2)) + geom_point() +
                 color = 'black')
 
 #---- Visualization
+
+#--- Anova
+
+# aov requires one big vector as well as a second parallel factor column (ind) that identifies the group
+stackedData <- stack(list(data1=data1, data2=data2, data3=data3))
+aov(values~ind, data=stackedData)
+
+#----

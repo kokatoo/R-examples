@@ -112,3 +112,13 @@ data[order(data$col, data$col2),]
 # sorting the whole data frame
 data[do.call(order, data),] # order expects a list of vectors but interprets a dataframe as a vector
 
+# convert a list to a vector
+mean(unlist(listData))
+
+# remove element from list
+lst[["element"]] <- NULL
+lst[condition] <- NULL
+# removing null elements from list
+lst[sapply(lst, is.null)] <- NULL
+
+
