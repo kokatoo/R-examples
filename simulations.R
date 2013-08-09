@@ -84,7 +84,7 @@ confidenceIntervalSimu <- function() {
 confidenceIntervalSimu()
 #----
 
-##---- Hypothesis Testing Simulation}
+##---- Hypothesis Testing Simulation
 pValue <- function(t.stat, df, two.tailed=F) {
     pVal <- .5 - abs(.5-pt(t.stat, df))
 
