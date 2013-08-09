@@ -83,3 +83,60 @@ confidenceIntervalSimu <- function() {
 
 confidenceIntervalSimu()
 #----
+
+##---- Hypothesis Testing Simulation}
+pValue <- function(t.stat, df, two.tailed=F) {
+    pVal <- .5 - abs(.5-pt(t.stat, df))
+
+    if(two.tailed) {
+        pVal <- 2*pVal
+    }
+
+    pVal
+}
+hypothesisTestingSimu <- function() {
+
+    popMean <- 11
+    popVar <- 5
+
+    nullMean <- 10
+    numSamples <- 100
+    two.tailed <- T
+    alpha <- .05
+    sampleSize <- 30
+
+    output <- NULL
+    decisions <- c()
+    for (i in 1:numSamples) {
+        popMean <- 10
+        popVar <- 5
+        data <- rnorm(sampleSize, popMean, sqrt(popVar))
+
+        t.stat <- (mean(data) - nullMean) / sqrt(var(data)/sampleSize)
+        prob <- pValue(t.stat, sampleSize-1, two.tailed)
+        t.prob <- t.test(data, mu=nullMean)$p.value
+
+        if (prob < alpha) {
+            decision = "REJECT"
+        } else {
+            decision = "RETAIN"
+        }
+
+        decisions <- c(decisions, decision)
+        output <- rbind(output,
+                        cbind(round(mean(data), digits=2), round(sqrt(var(data)), digits=2),
+                              round(t.stat, digits=3), decision, round(prob, digits=3), round(t.prob, digits=3)))
+
+    }
+
+    dimnames(output) <- list(rep("", numSamples),
+                             c("Sample Mean", "Sample SD", "t-stat", "Decision", "p-Value", "t.test$p.value"))
+
+    cat("% RETAINED: ", length(decisions[decisions=="RETAIN"]) / length(decisions) * 100, "%")
+    cat("\n")
+
+    print(output, min.colwidth=15, prefix.width=0, quote=F)
+
+}
+hypothesisTestingSimu()
+#----
