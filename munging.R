@@ -9,6 +9,9 @@ help(package="stats")
 vignette(package="stats")
 # restricted to R documentation
 RSiteSearch("stats package")
+# find
+find("lowess")
+apropos("lm")
 
 # details about variables
 ls()
@@ -135,3 +138,25 @@ with(dataset,
 # factors
 grades <- factor(c("A", "B", "C", "D"), ordered=T)
 edit(grades)
+
+# max/min
+which.max(data$col)
+which.min(data$col)
+which(data$col == max(data$col))
+which(data$col == min(data$col))
+
+## Tukey 5 num summary
+# min, lower hinge, medium, upper hinge, max
+fivenum(data$col)
+
+# table
+counts <- rnbinom(10000, mu=0.92, size=1.1)
+table(counts)
+
+# tapply
+with(data, tapply(col1, col2, mean, na.rm=T))
+# trim 20% of the left and right tail of the data
+tapply(col1, col2, mean, trim=.2)
+# multi-dimensional table
+with(data, tapply(col1, list(col1, col2), mean))
+
