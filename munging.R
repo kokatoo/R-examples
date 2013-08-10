@@ -121,4 +121,17 @@ lst[condition] <- NULL
 # removing null elements from list
 lst[sapply(lst, is.null)] <- NULL
 
+# attach dataframe
+attach(dataset)
+# using with
+with(dataset,
+{
+    summary(col1)
+    plot(col2)
+    # use <<- to create objects outside with
+    summary.col <<- summary(col1)
+})
 
+# factors
+grades <- factor(c("A", "B", "C", "D"), ordered=T)
+edit(grades)

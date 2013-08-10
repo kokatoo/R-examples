@@ -40,6 +40,20 @@ reshape(data.reshape)
 
 ##---- Visualization
 
+# create multiple plots
+dev.new()
+plot()
+dev.next()
+plot()
+dev.off()
+
+# saving old par
+old.par <- par(no.readonly=T)
+par(old.par)
+
+# abline
+abline(lm.fit)
+
 # histogram
 data.hist <- ggplot(data, aes(x=DateOccurred)) + geom_histogram()
 data.hist <- ggplot(data, aes(x=DateOccurred)) + geom_histogram(binwidth = 5)
