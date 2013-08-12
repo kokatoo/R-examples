@@ -4,7 +4,7 @@ summary(data$col)
 range(data$col)
 quantile(data$col)
 
-#---- Summary Statistics
+#----
 
 ##---- Aggregation
 
@@ -27,7 +27,7 @@ data.counts <- tabulate(data$col1)
 table(data$col1)
 table(data$co1, data$col2)
 
-#---- Aggregation
+#----
 
 ##---- Reshaping Data
 
@@ -36,7 +36,41 @@ data.reshape <- reshape(data, idvar="col1", timevar="col2", direction="wide"))
 # calls to reshape are reversible
 reshape(data.reshape)
 
-#----Reshaping Data
+library(reshape)
+# cast col1 to be the rows, col2 to be the column and col3 to be the value in the cell
+date.matrix <- cast(data, col1 ~ col2, value=col3)
+
+#----
+
+##---- Group Summary Statistics
+
+# y, z are response variables
+# x, y are explanatory variables
+aggregate(y~x, data, mean)
+aggregate(y~x+y, data, mean)
+aggregate(cbind(y, z)~x+y, data, mean)
+
+# parallel min, max
+x <- 1:10
+y <- 2:11
+z <- 3:12
+pmin(x, y, z)
+pmax(x, y, z)
+
+## tapply
+# group x by y or (y & z)
+tapply(x, y, mean)
+tapply(x, list(x, y), mean)
+
+#----
+
+##--- SQL
+
+library(sqldf)
+sqldf("select * from iris where Sepal_Width<3 order by Sepal_Length", row.names=T)
+sqldf("select avg(Sepal_Width) from iris group by Species", row.names=T)
+
+#----
 
 ##---- Visualization
 
@@ -86,35 +120,5 @@ ggplot(data, aes(x = colx, y = coly, color = factor2)) + geom_point() +
 # aov requires one big vector as well as a second parallel factor column (ind) that identifies the group
 stackedData <- stack(list(data1=data1, data2=data2, data3=data3))
 aov(values~ind, data=stackedData)
-
-#----
-
-##---- Group Summary Statistics
-
-# y, z are response variables
-# x, y are explanatory variables
-aggregate(y~x, data, mean)
-aggregate(y~x+y, data, mean)
-aggregate(cbind(y, z)~x+y, data, mean)
-
-# parallel min, max
-x <- 1:10
-y <- 2:11
-z <- 3:12
-pmin(x, y, z)
-pmax(x, y, z)
-
-## tapply
-# group x by y or (y & z)
-tapply(x, y, mean)
-tapply(x, list(x, y), mean)
-
-#----
-
-##--- SQL
-
-library(sqldf)
-sqldf("select * from iris where Sepal_Width<3 order by Sepal_Length", row.names=T)
-sqldf("select avg(Sepal_Width) from iris group by Species", row.names=T)
 
 #----
