@@ -73,8 +73,6 @@ data$Date <- transform(data, Date=as.Date(Date, format="%Y%m%d"))
 
 # construct matrix from a list
 matrix <- do.call(rbind, some_list)
-# add matrix to dataframe using transform
-data <- transform(data, colnew1=col1, colnew2=col2)
 
 # lookup and match
 us.states <- c("ak","al","ar","az","ca","co","ct","de","fl","ga","hi","ia","id","il", "in","ks","ky","la","ma","md","me","mi","mn","mo","ms","mt","nc","nd","ne","nh", "nj","nm","nv","ny","oh","ok","or","pa","ri","sc","sd","tn","tx","ut","va","vt", "wa","wi","wv","wy")
@@ -121,6 +119,7 @@ lowestRank <- rank(data$col1)[1]
 
 # order col1 by the order of col2
 data$col1[order(data$col2)]
+with(data, col1[order(col2, col3)])
 
 # convert a list to a vector
 mean(unlist(listData))
@@ -166,3 +165,44 @@ with(data, tapply(col1, col2, mean, na.rm=T))
 tapply(col1, col2, mean, trim=.2)
 # multi-dimensional table
 with(data, tapply(col1, list(col1, col2), mean))
+
+# tranform
+data <- transform(data, newCol1=col1+col2, newCol2=col1*col2)
+
+## recoding variables
+# within is similar to with but allow you to modify dataframe
+users <- within(users, { age.cat <- NA
+                         age.cat[age < 12] <- kids
+                         age.cat[age < 21] <- teens
+                         age.cat[age >= 21] <- adults})
+
+# renaming variables
+library(reshape)
+users <- rename(users, c(id="userID", Name="First-Name"))
+names(users) <- c("userID", "First-Name")
+
+# omitting incomplete data
+na.omit(data)
+
+## Dates
+# check out lubridate and fCalendar packages
+as.Date(c("2013-01-01", "2013-01-02"))
+as.Date(c("2013-30-01", "2013-31-01"), format="%Y-%d-%m")
+# today's date
+Sys.Date()
+format(Sys.Date(), format="%B %d %Y")
+format(Sys.Date(), format="%A")
+# today's date and time
+date()
+# difftime
+difftime(Sys.Date(), as.Date("2012-01-01"), unit="weeks")
+
+## Merging Datasets
+merged <- merge(data1, data2, by="id")
+merged <- merge(data1, data2, by=c("id", "state"))
+
+)
+
+## Subset
+subdata <- subset(data, col1 > 10 | col2 < 100,
+                  select=c(col1, col2, col3))

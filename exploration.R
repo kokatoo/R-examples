@@ -111,3 +111,10 @@ tapply(x, list(x, y), mean)
 
 #----
 
+##--- SQL
+
+library(sqldf)
+sqldf("select * from iris where Sepal_Width<3 order by Sepal_Length", row.names=T)
+sqldf("select avg(Sepal_Width) from iris group by Species", row.names=T)
+
+#----
