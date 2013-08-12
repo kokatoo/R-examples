@@ -115,6 +115,13 @@ data[order(data$col, data$col2),]
 # sorting the whole data frame
 data[do.call(order, data),] # order expects a list of vectors but interprets a dataframe as a vector
 
+# ranking
+highestRank <- rank(data$col1)[length(data$col1)]
+lowestRank <- rank(data$col1)[1]
+
+# order col1 by the order of col2
+data$col1[order(data$col2)]
+
 # convert a list to a vector
 mean(unlist(listData))
 
@@ -159,4 +166,3 @@ with(data, tapply(col1, col2, mean, na.rm=T))
 tapply(col1, col2, mean, trim=.2)
 # multi-dimensional table
 with(data, tapply(col1, list(col1, col2), mean))
-

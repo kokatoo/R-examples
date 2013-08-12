@@ -79,7 +79,7 @@ ggplot(data, aes(x = colx, y = coly, color = factor2)) + geom_point() +
                 slope = - coef(logit.model)[3] / coef(logit.model)[2], geom = 'abline',
                 color = 'black')
 
-#---- Visualization
+#----
 
 #--- Anova
 
@@ -88,3 +88,26 @@ stackedData <- stack(list(data1=data1, data2=data2, data3=data3))
 aov(values~ind, data=stackedData)
 
 #----
+
+##---- Group Summary Statistics
+
+# y, z are response variables
+# x, y are explanatory variables
+aggregate(y~x, data, mean)
+aggregate(y~x+y, data, mean)
+aggregate(cbind(y, z)~x+y, data, mean)
+
+# parallel min, max
+x <- 1:10
+y <- 2:11
+z <- 3:12
+pmin(x, y, z)
+pmax(x, y, z)
+
+## tapply
+# group x by y or (y & z)
+tapply(x, y, mean)
+tapply(x, list(x, y), mean)
+
+#----
+
