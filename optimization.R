@@ -51,3 +51,43 @@ linearRegressionSimu <- function () {
 linearRegressionSimu()
 
 #----
+
+##---- Golden Section Method
+
+goldenSection <- function(f, a, b) {
+
+    tol <- 1e-7
+
+    intervals <- seq(a, b, len=10)
+    plot(intervals, f(intervals), pch=19, col="skyblue", xlab="x", ylab="f")
+    lines(intervals, f(intervals), col="skyblue")
+    intervals
+    goldenRatio <- 2/(sqrt(5)+1)
+
+    x1 <- b - goldenRatio*(b-a)
+    x2 <- a + goldenRatio*(b-a)
+
+    fx1 <- f(x1)
+    fx2 <- f(x2)
+
+    while(abs(b-a) > tol) {
+        if (fx2 > fx1) {
+            b <- x2
+            x2 <- x1
+            fx2 <- fx1
+            x1 <- b-goldenRatio*(b-a)
+            fx1 <- f(x1)
+        } else {
+            a <- x1
+            x1 <- x2
+            fx1 <- fx2
+            x2 <- a+goldenRatio*(b-a)
+            fx2 <- f(x2)
+        }
+    }
+
+    ((a+b)/2)
+}
+goldenSection(function(x) abs(x-3.5) + (x-2)^2, 1, 5)
+
+#----
