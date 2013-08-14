@@ -88,3 +88,37 @@ goldenSection <- function(f, a, b) {
 goldenSection(function(x) abs(x-3.5) + (x-2)^2, 1, 5)
 
 #----
+
+##---- Newton's Method
+
+newton <- function() {
+
+    a <- -2
+    b <- 2
+    f <- function(x) {x^3 - 2*x + 2}
+    curve(f, a, b)
+    grid()
+    tol <- 1e-15
+
+    fprime <- function(x) {3*x^2 - 2}
+    fdoublePrime <- function(x) {6*x}
+
+    x <- 2
+    for(i in 1:1000) {
+        fval <- f(x)
+        fprimeVal <- fprime(x)
+
+        if (abs(fprimeVal) < tol) {
+            break
+        }
+
+        fdoublePrimeVal <- fdoublePrime(x)
+        x <- x - fprimeVal/fdoublePrimeVal
+    }
+
+    grid
+    abline(v=x)
+    x
+}
+newton()
+#----
