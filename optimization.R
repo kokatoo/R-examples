@@ -58,10 +58,7 @@ goldenSection <- function(f, a, b) {
 
     tol <- 1e-7
 
-    intervals <- seq(a, b, len=10)
-    plot(intervals, f(intervals), pch=19, col="skyblue", xlab="x", ylab="f")
-    lines(intervals, f(intervals), col="skyblue")
-    intervals
+    curve(f, a, b)
     goldenRatio <- 2/(sqrt(5)+1)
 
     x1 <- b - goldenRatio*(b-a)
