@@ -58,7 +58,7 @@ goldenSection <- function(f, a, b) {
 
     tol <- 1e-7
 
-    curve(f, a, b)
+    curve(f, a, b, col="skyblue")
     goldenRatio <- 2/(sqrt(5)+1)
 
     x1 <- b - goldenRatio*(b-a)
@@ -83,9 +83,13 @@ goldenSection <- function(f, a, b) {
         }
     }
 
-    ((a+b)/2)
+    result <- ((a+b)/2)
+    grid()
+    abline(v=result)
+    abline(h=f(result))
+
 }
-goldenSection(function(x) abs(x-3.5) + (x-2)^2, 1, 5)
+goldenSection(function(x) x^3 - 2*x + 2, -2, 2)
 
 #----
 
@@ -95,13 +99,13 @@ newton <- function() {
 
     a <- -2
     b <- 2
-    f <- function(x) {x^3 - 2*x + 2}
+    f <- function(x) x^3 - 2*x + 2
     curve(f, a, b)
     grid()
     tol <- 1e-15
 
-    fprime <- function(x) {3*x^2 - 2}
-    fdoublePrime <- function(x) {6*x}
+    fprime <- function(x) 3*x^2 - 2
+    fdoublePrime <- function(x) 6*x
 
     x <- 2
     for(i in 1:1000) {
@@ -118,7 +122,9 @@ newton <- function() {
 
     grid
     abline(v=x)
+    abline(h=f(x))
     x
 }
 newton()
+
 #----
