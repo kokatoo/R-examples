@@ -40,6 +40,11 @@ inv.logit(predict(log.fit, newx=x, s=.001))
 # polynomial regression
 poly.fit <- lm(coly ~ poly(colx, degree=3), data=data)
 
+# regression subsets
+# each subset show the top 2 and use all subsets
+result <- summary(regsubsets(X, y, nbest=2, nvmax=ncol(X)))
+cbind(result$which, result$rsq, result$adjr2, out$cp)
+
 # one way to measure model complexity
 model.complexity <- sum(coef(lm.fit)^2)
 
