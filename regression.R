@@ -48,6 +48,10 @@ cbind(result$which, result$rsq, result$adjr2, out$cp)
 # one way to measure model complexity
 model.complexity <- sum(coef(lm.fit)^2)
 
+# residual plot
+plot(model$res~model$fitted)
+hist(model$res)
+
 ##---- Cross validation using regularization
 library(glmnet)
 rmse <- function(y, pred) {
