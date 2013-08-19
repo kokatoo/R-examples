@@ -52,6 +52,24 @@ model.complexity <- sum(coef(lm.fit)^2)
 plot(model$res~model$fitted)
 hist(model$res)
 
+##---- lasso
+
+lasso.ex <- function(data) {
+
+    library(lars)
+    X <- model.matrix(col1 ~ col2 + col3 + col4 + col5, data=data)
+    lasso <- lars(x=X, y=data$y, trace=T)
+    plot(lasso)
+
+    coef(lasso, s=c(.25, .5, .75, 1), mode="fraction")
+
+    # K-fold cross validation
+    cv.lars(x=X, y=data$y, K=10)
+
+}
+
+#----
+
 ##---- Cross validation using regularization
 library(glmnet)
 rmse <- function(y, pred) {
