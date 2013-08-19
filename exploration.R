@@ -113,6 +113,11 @@ ggplot(data, aes(x = colx, y = coly, color = factor2)) + geom_point() +
                 slope = - coef(logit.model)[3] / coef(logit.model)[2], geom = 'abline',
                 color = 'black')
 
+# mosaicplot
+mosaicplot(factor(data$col1)~factor(data$col2))
+tab <- table(factor(data$co1), factor(data$col2))
+mosaicplot(tab)
+
 #----
 
 #--- Anova

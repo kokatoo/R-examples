@@ -25,6 +25,12 @@ coef(lm(scale(data$col1) ~ scale(data$col2)))[2]
 # covariance
 cov(data$col1, data$col2)
 
+# plot scatterplots of all pairs
+plot(data)
+# using ellipse
+library(ellipse)
+plotcorr(cor(data))
+
 # logistic regression
 log.fit <- glmnet(x, y, family="binomial")
 # turning logistic regression output into probs
