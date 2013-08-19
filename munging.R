@@ -31,6 +31,12 @@ install.packages()
 rm(var.name)
 rm(list=ls())
 
+# recode variables
+library(car)
+data$col1 <- recode(data$col1, "'positive'=1;else=0")
+data$col1 <- as.numeric(levels(data$col1)[data$col1)[data$col1])
+table(data$col1)
+
 # saving workspace
 save.image()
 
