@@ -6,8 +6,9 @@ pca.ex <- function() {
     plot(pca)
 
     # plot the first 2 components
-    plot(data[,1:2], type="n")
-    text(x=data[,1], y=data[,2], labels=data$col.label)
+    result <- predict(pca)
+    plot(result[,1:2], type="n")
+    text(x=result[,1], y=result[,2], labels=data$col.label)
 
 }
 
