@@ -24,3 +24,12 @@ clustering.EM <- function () {
     data.frame(data$col.label, prob[o])
 
 }
+
+dendogram.ex <- function () {
+
+    library(cluster)
+    aggro <- agnes(data, diss=F, metric="euclidian")
+
+    plot(aggro, which.plot=2, cex=.5)
+
+}
