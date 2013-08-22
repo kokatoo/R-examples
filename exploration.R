@@ -4,6 +4,12 @@ summary(data$col)
 range(data$col)
 quantile(data$col)
 
+library(Hmisc)
+describe(data$col1)
+
+library(fBasics)
+basicStats(data$col1)
+
 #----
 
 ##---- Aggregation
