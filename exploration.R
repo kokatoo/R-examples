@@ -6,9 +6,26 @@ quantile(data$col)
 
 library(Hmisc)
 describe(data$col1)
+skewness(data[,c(col1, col2)])
+kurtosis(data[,c(col1, col2)])
 
 library(fBasics)
 basicStats(data$col1)
+
+# skewness
+library(e1071)
+apply(data, 2, skewness)
+
+# recenter
+scale(data$col1)
+
+# rescale to 0 and 1
+library(reshape)
+rescaler(data$col1, "range")
+
+hist(runif(1000))
+hist(rnorm(1000))
+
 
 #----
 
